@@ -19,6 +19,14 @@ module.exports = {
             successRedirect: '/app',
             failureRedirect: '/login'
         });
+    },
+
+    register: function*() {
+        yield this.render('auth/register',{ title: 'Register' });
+    },
+
+    forgot_password: function*() {
+        yield this.render('auth/forgot_password', { title: 'Forgotten password' });
     }
 
 };
