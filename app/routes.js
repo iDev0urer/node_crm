@@ -2,14 +2,7 @@
 /*jshint esnext: true */
 "use strict";
 
-// const router = require('koa-router')();
-
-// router
-//     .get('/', function *(next) {
-//         yield this.render('home', {title: 'Test page'});
-//     });
-
-// module.exports = router;
+let pry = require('pryjs');
 
 module.exports = {
 
@@ -18,7 +11,14 @@ module.exports = {
     'get /users': { to: 'users#index' },
     'post /users': { to: 'users#create' },
     'get /users/:id': { to: 'users#show' },
-    'delete /users/:id': { to: 'users#delete' }
+    'delete /users/:id': { to: 'users#delete' },
+
+    'get /login': { to: 'auth#getLogin' },
+    'post /login': { to: 'auth#postLogin' }
+
+    
+
+    
     // 'put|post /users/:id': { to: 'users#update' },
     // 'get /users/:id/words/:slug*': { to: 'events#words' },
     // 'get /event/:slug+': { to: 'events#index', constraint: 'api#ip' },
