@@ -32,7 +32,8 @@ app.use(hbs.middleware({
     viewPath: __dirname + '/app/views',
     partialsPath: __dirname + '/app/views/partials',
     layoutsPath: __dirname + '/app/views/layouts',
-    defaultLayout: 'main'
+    defaultLayout: 'main',
+    disableCache: true
 }));
 
 app.use(kc.tools());

@@ -5,12 +5,12 @@
 const mongoose = require('mongoose'),
       Schema = mongoose.Schema;
 
-var Group = new Schema({
+var schema = new Schema({
     name: { type: String, required: true, unique: true },
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now }
 });
 
-User = mongoose.model('User', User);
+var model = mongoose.model('Group', schema);
 
-module.exports = User;
+module.exports = model;

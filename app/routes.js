@@ -14,8 +14,11 @@
 module.exports = {
 
     // controller#action
-    '/': { to: 'static#index' }
-    // 'post /users': { to: 'users#create' },
+    'get /': { to: 'static#index' },
+    'get /users': { to: 'users#index' },
+    'post /users': { to: 'users#create' },
+    'get /users/:id': { to: 'users#show' },
+    'delete /users/:id': { to: 'users#delete' }
     // 'put|post /users/:id': { to: 'users#update' },
     // 'get /users/:id/words/:slug*': { to: 'events#words' },
     // 'get /event/:slug+': { to: 'events#index', constraint: 'api#ip' },

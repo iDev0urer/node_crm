@@ -27,10 +27,16 @@ gulp.task('babel', () => {
         .pipe(livereload());
 });
 
+gulp.task('templates', () => {
+    gulp.src('./app/views/**/*')
+        .pipe(livereload());
+});
+
 gulp.task('watch', function() {
     livereload.listen();
     gulp.watch('./app/assets/scss/**/*', ['sass']);
     gulp.watch('./app/assets/es6/**/*', ['babel']);
+    gulp.watch(['./app/views/**/*', './app/controllers/**/*'], ['templates']);
 });
 
 gulp.task('default', ['sass', 'babel']);
