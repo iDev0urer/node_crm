@@ -20,9 +20,13 @@ module.exports = {
             }
         });
 
-        eval(pry.it);
-        
-        yield this.render('home', { title: 'Test page', users: Users });
+        var users = [
+            {
+                "name": "Luke Skywalker"
+            }
+        ];
+
+        yield this.render('home', { title: 'Test page', users: users });
     }
 
 };
