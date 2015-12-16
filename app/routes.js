@@ -13,8 +13,8 @@ module.exports = {
     'get /users/:id': { to: 'users#show' },
     'delete /users/:id': { to: 'users#delete' },
 
-    'get /login': { to: 'auth#getLogin' },
-    'post /login': { to: 'auth#postLogin' }
+    'get /auth/login': { to: 'auth#getLogin' },
+    'post /auth/login': { to: 'auth#postLogin' }
 
     
 

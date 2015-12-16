@@ -5,7 +5,8 @@
 const app = require('koa')(),
       path = require('path'),
       kc = require('koa-controller'),
-      hbs = require('koa-hbs'),
+//     hbs = require('koa-hbs'),
+      Jade = require('koa-jade'),
       bodyparser = require('koa-bodyparser'),
       serve = require('koa-static'),
       mongoose = require('koa-mongoose'),
@@ -16,10 +17,8 @@ const app = require('koa')(),
 
 let pry = require('pryjs');
 let config = require('./config/config');
-global._ = __dirname;
 
 // require('./config/application');
-
 
 app.use(mongoose({                 
     mongoose: require('mongoose'), 
@@ -39,6 +38,9 @@ app.use(mongoose({
 
 app.use(logger());
 app.use(bodyparser());
+//app.use(function*(ctx, next) {
+//    ctx.body = ctx.request.body; 
+//});
 app.keys = [config.secret_key];
 app.use(session(app));
 
@@ -47,28 +49,38 @@ app.use(passport.session());
 
 app.use(serve(__dirname + '/public'));
 
+//app.use(hbs.middleware({ 
+//    viewPath: __dirname + '/app/views',                                                                     
+//    partialsPath: __dirname + '/app/views/partials',                                                       
+//    layoutsPath: __dirname + '/app/views/layouts',                                                          
+//    defaultLayout: 'main',                                                                                  
+//    disableCache: true                                                                                      
+//}));
 
-app.use(hbs.middleware({ 
-    viewPath: __dirname + '/app/views',                                                                     
-    partialsPath: __dirname + '/app/views/partials',                                                       
-    layoutsPath: __dirname + '/app/views/layouts',                                                          
-    defaultLayout: 'main',                                                                                  
-    disableCache: true                                                                                      
-}));
+// require('handlebars-form-helpers').register(hbs);
 
-require('handlebars-form-helpers').register(hbs);
 
-app.use(kc.tools());                                                                                        
-                                                                                                            
+const jade = new Jade({
+    viewPath: path.resolve(__dirname, 'app/views'),
+    debug: true,
+    pretty: true,
+    compileDebug: true,
+    noCache: true,
+    locals: {},
+    basedir: './app/views',
+    helperPath: [
+        path.resolve(__dirname, 'app/helpers'),
+        { _: require('lodash') }
+    ]
+});
+app.use(jade.middleware);
+
+app.use(kc.tools());                                                                                                            
 app.use(kc.router({                                                                                         
     routesPath: __dirname + '/app/routes.js',                                                               
     controllerPath: __dirname + '/app/controllers/{controller}.js', // note that {controller} is a variable 
     constraintPath: __dirname + '/app/constraints/{constraint}.js', // note that {constraint} is a variable 
-    logger: console.log // custom logger function                                                           
+    logger: logger() // custom logger function                                                           
 }));                                                                                                        
-
-
-// var routes = require('./app/routes');
-// app.use(routes.routes());
 
 app.listen(3000);

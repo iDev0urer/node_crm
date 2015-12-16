@@ -7,7 +7,6 @@ var pry = require('pryjs');
 module.exports = {
     
     index: function*(next) {
-        yield this.render('home', { title: 'Test page' });
+        this.render('home', { title: 'Test page' });
     }
-
 };

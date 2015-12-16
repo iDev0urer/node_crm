@@ -32,3 +32,5 @@ function(token, tokenSecret, profile, done) {
     // retrieve user ...
     done(null, user);
 }));
+
+module.exports = passport;
