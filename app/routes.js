@@ -12,13 +12,15 @@ module.exports = {
     'post /users': { to: 'users#create' },
     'get /users/:id': { to: 'users#show' },
     'delete /users/:id': { to: 'users#delete' },
+    'get /users/edit/:id': { to: 'users#edit' },
+    'post /users/edit/:id': { to: 'users#update' }
 
-    'get /auth/login': { to: 'auth#getLogin' },
-    'post /auth/login': { to: 'auth#postLogin' }
+    // 'get /auth/login': { to: 'auth#getLogin' },
+    // 'post /auth/login': { to: 'auth#postLogin' }
 
-    
 
-    
+
+
     // 'put|post /users/:id': { to: 'users#update' },
     // 'get /users/:id/words/:slug*': { to: 'events#words' },
     // 'get /event/:slug+': { to: 'events#index', constraint: 'api#ip' },

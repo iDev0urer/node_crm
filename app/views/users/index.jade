@@ -1,1 +1,7 @@
-h1 Users#Index
+extends ../layouts/main
+
+block content
+  h1 Users
+  ul
+    each user in users
+      li= user

@@ -2,27 +2,33 @@
 /*jshint esnext: true */
 "use strict";
 
-var assert = require('assert'),
-    should = require('should'),
-    pry = require('pryjs');
+const assert = require('assert'),
+      should = require('should'),
+      pry = require('pryjs'),
+      mongoose = require('mongoose'),
+      dbURI = 'mongodb://localhost/node_crm_test';
 
-describe('Array', function() {
-    describe('#indexOf()', function () {
-        it('should return -1 when the value is not present', function () {
-            assert.equal(-1, [1,2,3].indexOf(5));
-            assert.equal(-1, [1,2,3].indexOf(0));
-        });
-    });
-});
-
+let UserModel = require('../app/models/user');
 
 describe('User Model', function() {
-    it('should be able to save', () => {
-        var UserModel = require('../app/models/user');
-        var User = new UserModel();
-        UserModel.find({}, (err, docs) => {
-            console.log('Hi');
-            eval(pry.it);\
-        });
+
+    beforeEach(function(done) {
+        if (mongoose.connection.db) return done();
+        mongoose.connect(dbURI, done);
     });
+
+    it("can be saved", function(done) {
+        new UserModel({
+            name: {
+                prefix: '',
+                first: 'Chris',
+                middle: '',
+                last: 'Watson',
+                suffix: ''
+            },
+            email: 'chris@marginzero.co',
+            password: 'Pi31415926'
+        }).save(done);
+    });
+
 });
