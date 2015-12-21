@@ -4,4 +4,4 @@ block content
   h1 Users
   ul
     each user in users
-      li= user
+      li= user.name.first + ' ' + user.name.last

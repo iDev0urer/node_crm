@@ -9,7 +9,7 @@ module.exports = {
     // controller#action
     'get /': { to: 'static#index' },
     'get /users': { to: 'users#index' },
-    'post /users': { to: 'users#create' },
+    'post /users/new': { to: 'users#create' },
     'get /users/:id': { to: 'users#show' },
     'delete /users/:id': { to: 'users#delete' },
     'get /users/edit/:id': { to: 'users#edit' },

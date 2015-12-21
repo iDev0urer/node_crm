@@ -28,11 +28,11 @@ var schema = new Schema({
         first: String,
         middle: String,
         last: String,
-        suffix: String,
+        suffix: String
     },
-    email: { type: String, validate: emailValidator },
+    email: { type: String, validate: emailValidator, required: 'Email is required' },
     password_hash: { type: String },
-    password_salt: { type: String },
+    password_salt: { type: String }
 });
 
 schema.pre('save', function(next) {

@@ -9,24 +9,51 @@ let pry = require('pryjs'),
 module.exports = {
 
     index: function*(next) {
-        let _this = this;
-        yield UserModel.find({}).exec()
-            .then(function(users) {
-                console.log(users);
-                _this.render('users/index', { users: users });
+        let _this = this,
+            user_query;
+        yield user_query = UserModel.find({}).exec();
+
+        yield user_query.then(function(users) {
+           _this.render('users/index', { users: users });
         });
     },
 
     show: function*(id) {
-        this.body = `Show user ${id}`;
+        let _this = this,
+            user_query;
+        yield user_query = UserModel.findById(id).exec();
+
+        yield user_query.then(function(user) {
+            _this.render('users/show', { user: user });
+        });
     },
 
     new: function*() {
-        this.body = 'Add user'
+        
     },
 
     create: function*() {
-        this.body = { message: 'User added' };
+        let _this = this,
+            user_query,
+            req = this.request.body;
+
+        yield user_query = new UserModel({
+            name: {
+                first: req.first_name,
+                last: req.last_name
+            },
+            email: req.email,
+            password: req.password
+        }).save().then(function() {
+            // Record saved
+        }, function(err) {
+            if (err) {
+                _this.body = { message: 'Error adding user' };
+            } else {
+                _this.body = { message: 'Added user' };
+            }
+        });
+        
     },
 
     edit: function*(id) {
@@ -34,7 +61,7 @@ module.exports = {
     },
 
     update: function*() {
-        this.body = { message: 'User updated' }
+        this.body = { message: 'User updated' };
     },
 
     delete: function*() {
